@@ -8,7 +8,7 @@ class RegisterUser(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[InputRequired(), EqualTo('password')])
-    submit = SubmitField('Register')
+    submitRU = SubmitField('Register')
 
 
 class RegisterCompany(FlaskForm):
@@ -18,7 +18,7 @@ class RegisterCompany(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[InputRequired(), EqualTo('password')])
-    submit = SubmitField('Register')
+    submitRC = SubmitField('Register')
 
 class LoginForm(FlaskForm):
     email = EmailField('Email',[InputRequired("Please enter your email."),Email("This field requires a valid email address")])
