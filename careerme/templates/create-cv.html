@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.company_name %}
+<div class="container mt-5">
+    <h2>Companies cannot create CV</h2>
+</div>
+{% else %}
+<div class="container mt-5">
+    <h2>Create CV</h2>
+    <form method="POST">
+    {{ form.hidden_tag()}}
+      <div class="form-group">
+        <label for="workerName">Worker Name:</label>
+        <input type="text" class="form-control" id="workerName" placeholder="{{current_user.worker_fullname}}" disabled>
+      </div>
+
+      <div class="form-group">
+        {{ form.phone.label(class="form-control-label" , for="phone") }}
+        {% if form.phone.errors %}
+        {{ form.phone(class="form-control is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.phone.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+            </div>
+        {% else %}
+            {{ form.phone(class="form-control",placeholder="Enter your phone number") }}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.location.label(class="form-control-label" , for="location") }}
+        {% if form.location.errors %}
+        {{ form.location(class="form-control is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.location.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+            </div>
+        {% else %}
+            {{ form.location(class="form-control",placeholder="Enter your location") }}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.email.label(class="form-control-label" , for="email") }}
+        {% if form.email.errors %}
+        {{ form.email(class="form-control is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+            </div>
+        {% else %}
+            {{ form.email(class="form-control",placeholder="Enter your email") }}
+        {% endif %}
+    </div>
+  
+      <!-- Education Section -->
+      <h3>EDUCATION</h3>
+      <div id="educationEntries">
+        <div class="education-entry">
+            <div class="form-group">
+                {{ form.degree.label(class="form-control-label" , for="degree") }}
+                {% if form.degree.errors %}
+                {{ form.degree(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.degree.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.degree(class="form-control",placeholder="Enter your degree") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.school.label(class="form-control-label" , for="school") }}
+                {% if form.school.errors %}
+                {{ form.school(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.school.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.school(class="form-control",placeholder="Enter your school name") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.starting_year.label(class="form-control-label" , for="starting_year") }}
+                {% if form.starting_year.errors %}
+                {{ form.starting_year(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.starting_year.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.starting_year(class="form-control",placeholder="2024",value=2020) }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.graduation_year.label(class="form-control-label" , for="graduation_year") }}
+                {% if form.graduation_year.errors %}
+                {{ form.graduation_year(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.graduation_year.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.graduation_year(class="form-control",placeholder="2025",value=2025) }}
+                {% endif %}
+            </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="addEducationEntry()">+</button>
+  
+      <!-- Skills Section -->
+      <h3>SKILLS</h3>
+      <div class="form-group">
+        {{ form.skills.label(class="form-control-label" , for="skills") }}
+        {% if form.skills.errors %}
+        {{ form.skills(class="form-control is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.skills.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+            </div>
+        {% else %}
+            {{ form.skills(class="form-control",placeholder="Use comma(,) to seperate your skills") }}
+        {% endif %}
+    </div>
+  
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>    
+    </form>
+  </div>
+<div style="margin-bottom: 150px;">
+
+</div>
+
+
+  <script>
+    document.getElementById('educationEntries').addEventListener('input', function (event) {
+      const educationEntry = document.querySelector('.education-entry');
+      if (event.target.tagName.toLowerCase() === 'input' && event.target.value.trim() !== '') {
+        educationEntry.style.display = 'block';
+      }
+    });
+  
+    function addEducationEntry() {
+      const educationEntry = document.querySelector('.education-entry').cloneNode(true);
+      document.getElementById('educationEntries').appendChild(educationEntry);
+    }
+  </script>
+{% endif %}
+{% endblock %}

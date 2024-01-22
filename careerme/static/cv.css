@@ -1,0 +1,26 @@
+.cvcv {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cvh2 {
+    color: #007bff;
+}
+
+hr {
+    border-top: 2px solid #007bff;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    color: #343a40;
+}
+
+.list-group-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}

@@ -332,3 +332,46 @@ footer {
     text-decoration: none;
 
 }
+
+
+.job-container-header {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.job-card-header {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.job-card-header:hover {
+    transform: scale(1.05);
+}
+
+.job-title-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.job-info-header {
+    list-style-type: none;
+    padding: 0;
+}
+
+.job-info-header li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.icon {
+    margin-right: 8px;
+    color: #3498db;
+}

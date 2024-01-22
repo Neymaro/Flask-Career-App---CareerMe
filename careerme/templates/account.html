@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="profile-container">
+        <div class="left-column">
+            {% if current_user.company_name %}
+            <div class="profile-picture">
+                <img style="border-radius: 50%;" src="{{ url_for('static', filename='profile_pics/' + current_user.company_photo)}}">
+            </div>
+            <div>Company</div>
+            <div class="username">{{ current_user.company_name }}</div>
+            <div class="location">{{ current_user.company_email }}</div>
+            {% elif current_user.worker_fullname %}
+            <div class="profile-picture">
+                <img style="border-radius: 50%; width: 100%;" src="{{ url_for('static', filename='profile_pics/default.jpg')}}">
+            </div>       
+            <div>Candidate</div>
+            <div class="username">{{ current_user.worker_fullname }}</div>
+            <div class="location">{{ current_user.worker_email }}</div>
+            {%  endif %}
+        </div>
+
+        <div class="right-column">
+            {% if current_user.company_name %}
+            <div class="about-me-section">
+                <h3>About Us</h3>
+                <p>{{ current_user.company_detail }}</p>
+            </div>
+            {% elif current_user.worker_fullname %}
+            <div class="about-me-section">
+                <h3>About Me</h3>
+                <p>{{ current_user.about }}</p>
+            </div>
+            
+            <div class="update-section">
+                {% if show_cv %}
+                <a class="btn btn-primary button" href="{{ url_for('user.createcv')}}">Update CV</a>
+                {% else %}
+                <a class="btn btn-primary button" href="{{ url_for('user.createcv')}}">Create CV</a>
+                {%  endif %}
+                <button class="btn btn-primary button" data-toggle="modal">Update Profile</button>
+                {%  endif %}{% if current_user.company_name %}
+                <a class="btn btn-primary button" href="{{ url_for('user.edit')}}">Update Profile</a>
+                <button class="btn btn-primary button" data-toggle="modal" onclick="showModalBody()">Add Listing</button>
+                {%  endif %}
+            </div>
+            {% if current_user.worker_fullname %}
+            
+        </div>{%  endif %}
+    </div>
+</div>
+{% if current_user.company_name %}
+<section>
+    <div class="container">
+        <h2>Our Job Offers</h2>
+        <div class="row listing-section">
+            {% for job in job_listings %}
+            <div class="col-md-6">
+                <div class="my-listing-card">
+                    <div class="my-listing-info">
+                        <div>
+                            <p><strong>Date:</strong> {{ job.posted_time_str }}</p>
+                            <p><strong>Title:</strong> {{ job.title }}</p>
+                            <p><strong>Details:</strong> {{ job.content[:150]}}</p>
+                        </div>
+                        <a class="my-view-btn" href="{{ url_for('user.post', list_id=job.id) }}">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% elif current_user.worker_fullname %}                    
+{% if show_cv_list %}
+<div class="container mt-4">
+    <section>
+        <h2 class="mb-4">{{ current_user.worker_fullname }}</h2>
+        <hr class="my-4">
+        <div class="mb-4">
+            <h3>Education</h3>
+        <div class="row">
+        {% for show_cv in show_cv_list %}
+        {% for education in show_cv.educations %}
+        <div class="col-md-6">
+                <h5>{{ education.school }}</h5>    
+                <p>Major:{{ education.degree }}<br>
+                ({{ education.starting_year }} - {{ education.graduation_year }})</p>
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div> 
+    
+    {% else %}
+        <p>No CV found.</p>
+    {% endif %}
+{% endif %}
+</section>
+</div>            
+{% endblock %}
